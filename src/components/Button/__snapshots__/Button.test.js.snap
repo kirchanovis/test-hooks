@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders default button 1`] = `
+<button
+  className="sc-bdVaJa bNwIqc"
+  type="submit"
+>
+  Example
+</button>
+`;
+
+exports[`renders disabled button 1`] = `
+<button
+  className="sc-bdVaJa bNwIqc"
+  disabled={true}
+  type="submit"
+>
+  Example
+</button>
+`;

@@ -1,0 +1,248 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:jest/recommended",
+        "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest/globals": true,
+        "node": true
+    },
+    "plugins": [
+        "jest",
+        "react",
+        "react-hooks"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "array-bracket-newline": [ "error", "consistent" ],
+        "array-element-newline": [ "error", "consistent" ],
+        "array-callback-return": [ "error",
+            {
+                "allowImplicit": true
+            }
+        ],
+        "arrow-spacing": "error",
+        "block-scoped-var": "error",
+        "block-spacing": [ "error", "always" ],
+        "brace-style": [ "error", "1tbs",
+            {
+                "allowSingleLine": true
+            }
+        ],
+        "camelcase": [ "error",
+            {
+                "properties": "always"
+            }
+        ],
+        "comma-dangle": [ "error", "never" ],
+        "comma-spacing": [ "error",
+            {
+                "before": false,
+                "after": true
+            }
+        ],
+        "curly": "error",
+        "default-case": "warn",
+        "dot-location": [ "error", "property" ],
+        "dot-notation": "error",
+        "eol-last": "off",
+        "eqeqeq": "error",
+        "func-call-spacing": [ "error", "never" ],
+        "guard-for-in": "error",
+        "indent": [ "error", 4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "init-declarations": "error",
+        "jsx-quotes": [ "error", "prefer-double" ],
+        "key-spacing": "error",
+        "keyword-spacing": "error",
+        "lines-between-class-members": "error",
+        "max-len": [ "error", 160 ],
+        "new-cap": "off",
+        "newline-after-var": [ "error", "always" ],
+        "newline-before-return": "error",
+        "newline-per-chained-call": "error",
+        "no-console": "off",
+        "no-const-assign": "error",
+        "no-debugger": "off",
+        "no-else-return": "error",
+        "no-empty-function": "error",
+        "no-empty-pattern": "error",
+        "no-eq-null": "error",
+        "no-eval": "error",
+        "no-extend-native": "error",
+        "no-floating-decimal": "error",
+        "no-global-assign": "error",
+        "no-implicit-coercion": [ "error", {
+            "boolean": false
+        }],
+        "no-implied-eval": "error",
+        "no-label-var": "error",
+        "no-labels": "error",
+        "no-lone-blocks": "error",
+        "no-loop-func": "error",
+        "no-mixed-spaces-and-tabs": "error",
+        "no-multi-assign": "error",
+        "no-multiple-empty-lines": [ "error",
+            {
+                "max": 1
+            }
+        ],
+        "no-multi-spaces": "error",
+        "no-multi-str": "error",
+        "no-new": "error",
+        "no-new-func": "error",
+        "no-new-wrappers": "error",
+        "no-octal": "error",
+        "no-octal-escape": "error",
+        "no-param-reassign": "error",
+        "no-redeclare": "error",
+        "no-restricted-globals": [ "error",
+            {
+                "name": "isFinite",
+                "message": "Please use Number.isFinite instead"
+            },
+            {
+                "name": "isNaN",
+                "message": "Please use Number.isNaN instead"
+            }
+        ],
+        "no-restricted-properties": [ "error",
+            {
+                "object": "arguments",
+                "property": "callee",
+                "message": "arguments.callee is deprecated"
+            },
+            {
+                "object": "global",
+                "property": "isFinite",
+                "message": "Please use Number.isFinite instead"
+            },
+            {
+                "object": "self",
+                "property": "isFinite",
+                "message": "Please use Number.isFinite instead"
+            },
+            {
+                "object": "window",
+                "property": "isFinite",
+                "message": "Please use Number.isFinite instead"
+            },
+            {
+                "object": "global",
+                "property": "isNaN",
+                "message": "Please use Number.isNaN instead"
+            },
+            {
+                "object": "self",
+                "property": "isNaN",
+                "message": "Please use Number.isNaN instead"
+            },
+            {
+                "object": "window",
+                "property": "isNaN",
+                "message": "Please use Number.isNaN instead"
+            },
+            {
+                "object": "Math",
+                "property": "pow",
+                "message": "Use the exponentiation operator (**) instead"
+            }],
+        "no-return-await": "error",
+        "no-script-url": "error",
+        "no-self-assign": [ "error", {
+            "props": false
+        }],
+        "no-self-compare": "error",
+        "no-sequences": "error",
+        "no-shadow-restricted-names": "error",
+        "no-tabs": "error",
+        "no-trailing-spaces": "error",
+        "no-throw-literal": "error",
+        "no-undef-init": "error",
+        "no-undefined": "error",
+        "no-underscore-dangle": "off",
+        "no-unmodified-loop-condition": "error",
+        "no-unused-expressions": "error",
+        "no-unused-labels": "error",
+        "no-unused-vars": "error",
+        "no-useless-call": "error",
+        "no-useless-catch": "off",
+        "no-useless-concat": "error",
+        "no-useless-escape": "error",
+        "no-useless-return": "error",
+        "no-var": "error",
+        "no-void": "error",
+        "no-warning-comments": "off",
+        "no-with": "error",
+        "no-whitespace-before-property": "error",
+        "object-curly-newline": [ "error", {
+            "consistent": true
+        }],
+        "object-curly-spacing": [ "error", "always", {
+            "arraysInObjects": false,
+            "objectsInObjects": false
+        }],
+        "object-property-newline": [ "error", {
+            "allowAllPropertiesOnSameLine": false
+        }],
+        "object-shorthand": [ "error", "always" ],
+        "one-var": [ "error", "consecutive" ],
+        "one-var-declaration-per-line": ["error", "always"],
+        "operator-linebreak": [ "error", "after", {
+            "overrides": {
+                "?": "before",
+                ":": "before"
+            }
+        }],
+        "padded-blocks": [ "error", "never" ],
+        "padding-line-between-statements": [ "error", {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+        }, {
+            "blankLine": "always",
+            "prev": [ "const", "let", "var" ],
+            "next": "*"
+        }],
+        "prefer-const": "error",
+        "prefer-object-spread": "error",
+        "prefer-template": "error",
+        "quote-props": [ "error", "consistent" ],
+        "quotes": ["error", "single"],
+        "radix": "error",
+        "react-hooks/rules-of-hooks": "error",
+        "require-await": "off",
+        "semi-spacing": "error",
+        "semi-style": "error",
+        "space-before-blocks": "error",
+        "space-before-function-paren": [ "error", {
+            "anonymous": "always",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "space-in-parens": "error",
+        "space-infix-ops": "error",
+        "space-unary-ops": [ "error", {
+            "words": true,
+            "nonwords": false
+        }],
+        "strict": "off",
+        "switch-colon-spacing": "error",
+        "template-curly-spacing": "error",
+        "template-tag-spacing": "error",
+        "vars-on-top": "error",
+        "wrap-iife": "error",
+        "yoda": "error"
+    }
+}
