@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { MenuRightList, MenuListElem, MenuList, Menu as Root } from './styles'
 
 /**
@@ -25,8 +25,24 @@ function Menu(props: Props) {
     return (
         <Root>
             <MenuList>
-                <MenuListElem><Link to="/news">Новости</Link></MenuListElem>
-                { authorized && (<MenuListElem><Link to="/profile">Профиль</Link></MenuListElem>)}
+                <MenuListElem>
+                    <NavLink
+                        to="/news"
+                        activeClassName="selected"
+                    >
+                        Новости
+                    </NavLink>
+                </MenuListElem>
+                { authorized && (
+                    <MenuListElem>
+                        <NavLink
+                            to="/profile"
+                            activeClassName="selected"
+                        >
+                            Профиль
+                        </NavLink>
+                    </MenuListElem>
+                )}
             </MenuList>
             <MenuRightList>
                 <li>

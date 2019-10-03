@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Login, Logout } from './styles'
 
 type Props = {
@@ -25,7 +25,12 @@ function LoginButton(props: Props) {
                 </Logout>
             ) : (
                 <Login>
-                    <Link to="/login">Войти</Link>
+                    <NavLink
+                        activeClassName="selected"
+                        to="/login"
+                    >
+                        Войти
+                    </NavLink>
                 </Login>
             )}
         </React.Fragment>
