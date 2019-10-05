@@ -5,6 +5,7 @@ import { Context } from './../../context'
 import { NewsItem } from '../../components/NewsItem';
 import { Message } from '../../components/Message';
 import './style.scss'
+import { loadingNews, successNews, errorNews, getNewsApi } from './../../actions/news';
 
 function News() {
     const { state, dispatch } = useContext(Context),
@@ -12,24 +13,15 @@ function News() {
         [hiddenMessage, setHiddenMessage] = useState(true)
 
     useEffect(() => {
-        dispatch({
-            type: 'LOADING_NEWS'
-        })
+        dispatch(getNewsApi([]))
+        dispatch(loadingNews())
         getNews().then((req) => {
             if (req.data.status === 'ok') {
-                dispatch({
-                    type: 'SUCCESS_NEWS'
-                })
-                dispatch({
-                    type: 'GET_NEWS',
-                    payload: req.data.data
-                })
+                dispatch(successNews())
+                dispatch(getNewsApi(req.data.data))
                 setCount(req.data.data.length)
             } else {
-                dispatch({
-                    type: 'ERROR_NEWS',
-                    payload: 'Неизвестная ошибка'
-                })
+                dispatch(errorNews('Неизвестная ошибка'))
                 setHiddenMessage(false)
                 setTimeout(() => {
                     setHiddenMessage(true)
@@ -37,14 +29,8 @@ function News() {
             }
         })
             .catch(() => {
-                dispatch({
-                    type: 'ERROR_NEWS',
-                    payload: 'Сервер не доступен'
-                })
+                dispatch(errorNews('Сервер не доступен'))
                 setHiddenMessage(false)
-                setTimeout(() => {
-                    setHiddenMessage(true)
-                }, 3000);
             })
     }, [dispatch]);
 

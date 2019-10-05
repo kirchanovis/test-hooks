@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Context } from './../../context'
-import reducer from './../../reducer'
+import reducer from '../../reducers'
 
 import { Login } from '../Login';
 import { News } from '../News';
@@ -10,34 +10,17 @@ import { Profile } from '../Profile';
 import { Menu } from '../../components/Menu';
 import { LoginButton } from '../../components/LoginButton';
 import { NoPage } from '../../components/NoPage';
+import { logout } from '../../actions/login'
 
 function App() {
-    const initialState = {
-            news: {
-                loading: false,
-                errorMessage: '',
-                data: []
-            },
-            profile: {
-                loading: false,
-                errorMessage: '',
-                data: {}
-            },
-            user: {
-                loading: false,
-                errorMessage: '',
-                data: {}
-            }
-        },
+    const initialState = reducer({}, { type: '__INIT__' }),
         [state, dispatch] = useReducer(reducer, initialState)
 
     function handleToogle() {
         const authorized = Boolean(state.user.data.id)
 
         if (authorized) {
-            dispatch({
-                type: 'LOGOUT'
-            })
+            dispatch(logout())
         }
     }
 

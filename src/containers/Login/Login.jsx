@@ -9,6 +9,7 @@ import { ErrorMessage, LoginForm, Login as Root } from './styles'
 import { Button } from '../../components/Button';
 import { InputForm } from '../../components/InputForm';
 import { Message } from '../../components/Message';
+import { loadingUser, successUser, errorUser, login } from './../../actions/login';
 
 type Props = {
 
@@ -31,12 +32,44 @@ type Props = {
   }
 
 function Login() {
-    const [form, setForm] = useState({ email: '',
-            password: '' }),
+    const form = {
+            email: '',
+            password: ''
+        },
         [hiddenMessage, setHiddenMessage] = useState(true),
         { state, dispatch } = useContext(Context)
 
     if (state.user.data.id) { return <Redirect to="/profile" /> }
+
+    function handleSubmit(values, { setSubmitting, setFieldValue }) {
+        dispatch(loadingUser())
+        postUser(values.email, values.password).then((data) => {
+            setSubmitting(false);
+            if (data.data.status === 'ok') {
+                dispatch(successUser())
+                dispatch(login(data.data.data))
+            } else {
+                if (data.data.message === 'wrong_email_or_password') {
+                    dispatch(errorUser('Имя пользователя или пароль введены не верно'))
+                } else {
+                    dispatch(errorUser('Неизвестная ошибка'))
+                }
+                setHiddenMessage(false)
+                setTimeout(() => {
+                    setHiddenMessage(true)
+                }, 2000);
+            }
+        })
+            .catch(() => {
+                setSubmitting(false);
+                dispatch(errorUser('Сервер не доступен'))
+                setHiddenMessage(false)
+            })
+            .finally(() => {
+                setFieldValue('password', '')
+                setSubmitting(false);
+            })
+    }
 
     return (
         <Root>
@@ -44,53 +77,10 @@ function Login() {
             <Formik
                 enableReinitialize
                 initialValues={form}
-                onSubmit={(values, { setSubmitting }) => {
-                    dispatch({
-                        type: 'LOADING_USER'
-                    })
-                    postUser(values.email, values.password).then((data) => {
-                        setSubmitting(false);
-                        if (data.data.status === 'ok') {
-                            dispatch({
-                                type: 'SUCCESS_USER'
-                            })
-                            dispatch({
-                                type: 'LOGIN',
-                                payload: data.data.data
-                            })
-                        } else {
-                            if (data.data.message === 'wrong_email_or_password') {
-                                dispatch({
-                                    type: 'ERROR_USER',
-                                    payload: 'Имя пользователя или пароль введены не верно'
-                                })
-                                setForm({
-                                    email: values.email,
-                                    password: ''
-                                })
-                            } else {
-                                dispatch({
-                                    type: 'ERROR_USER',
-                                    payload: 'Неизвестная ошибка'
-                                })
-                            }
-                            setHiddenMessage(false)
-                            setTimeout(() => {
-                                setHiddenMessage(true)
-                            }, 3000);
-                        }
-                    })
-                        .catch(() => {
-                            setSubmitting(false);
-                            dispatch({
-                                type: 'SERVER_ERROR_USER'
-                            })
-                            setHiddenMessage(false)
-                            setTimeout(() => {
-                                setHiddenMessage(true)
-                            }, 3000);
-                        })
-                }}
+                onSubmit={(values, { setSubmitting, setFieldValue }) => handleSubmit(values, {
+                    setSubmitting,
+                    setFieldValue
+                })}
                 validationSchema={Yup.object().shape({
                     email: Yup.string()
                         .email('Email введен не корректно')
@@ -121,7 +111,7 @@ function Login() {
                                 <InputForm
                                     id="email"
                                     type="text"
-                                    value={values.email}
+                                    value={values.email || ''}
                                     changeInput={handleChange}
                                     blurInput={handleBlur}
                                     error={errors.email && touched.email ? true : false}
@@ -133,7 +123,7 @@ function Login() {
                                 <InputForm
                                     id="password"
                                     type="text"
-                                    value={values.password}
+                                    value={values.password || ''}
                                     changeInput={handleChange}
                                     blurInput={handleBlur}
                                     placeholder="Пароль"

@@ -5,6 +5,7 @@ import { Context } from './../../context'
 import { Preloader } from '../../components/Preloader';
 import { ProfileBlock } from '../../components/ProfileBlock';
 import { Message } from '../../components/Message';
+import { loadingProfile, successProfile, errorProfile, getProfile } from './../../actions/profile';
 
 function Profile() {
     const { state, dispatch } = useContext(Context),
@@ -15,24 +16,16 @@ function Profile() {
     /* userInfo(id).then((req) => {
       setUser(req.data.data)
     }) */
-        dispatch({
-            type: 'LOADING_PROFILE'
-        })
+        // обновлем данные
+        dispatch(getProfile({}))
+        dispatch(loadingProfile())
         if (id) {
             getTestUserInfo(id).then((req) => {
                 if (req.data.data[0].status === 'ok') {
-                    dispatch({
-                        type: 'SUCCESS_PROFILE'
-                    })
-                    dispatch({
-                        type: 'GET_PROFILE',
-                        payload: req.data.data[0].data
-                    })
+                    dispatch(successProfile())
+                    dispatch(getProfile(req.data.data[0].data))
                 } else {
-                    dispatch({
-                        type: 'ERROR_PROFILE',
-                        payload: 'Неизвестная ошибка'
-                    })
+                    dispatch(errorProfile('Неизвестная ошибка'))
                     setHiddenMessage(false)
                     setTimeout(() => {
                         setHiddenMessage(true)
@@ -40,14 +33,8 @@ function Profile() {
                 }
             })
                 .catch(() => {
-                    dispatch({
-                        type: 'ERROR_PROFILE',
-                        payload: 'Сервер не доступен'
-                    })
+                    dispatch(errorProfile('Сервер не доступен'))
                     setHiddenMessage(false)
-                    setTimeout(() => {
-                        setHiddenMessage(true)
-                    }, 3000);
                 })
         }
     }, [dispatch, id]);

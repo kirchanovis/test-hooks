@@ -22,5 +22,3 @@ test('renders disabled button', () => {
 
     expect(tree).toMatchSnapshot();
 });
-
-
