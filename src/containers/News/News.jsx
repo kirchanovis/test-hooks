@@ -4,7 +4,7 @@ import { getNews } from './../../api'
 import { Context } from './../../context'
 import { NewsItem } from '../../components/NewsItem';
 import { Message } from '../../components/Message';
-import './style.scss'
+import styles from './News.module.scss'
 import { loadingNews, successNews, errorNews, getNewsApi } from './../../actions/news';
 
 function News() {
@@ -35,7 +35,7 @@ function News() {
     }, [dispatch]);
 
     return (
-        <div className="news">
+        <div className={styles.main}>
             <Preloader active={state.news.loading} />
             <Message
                 hidden={hiddenMessage}
@@ -48,7 +48,7 @@ function News() {
                     text={elem.text}
                 />
             )}
-            <div className="newsItem__length">Всего новостей {count}</div>
+            <div className={styles.length}>Всего новостей {count}</div>
         </div>
     );
 }
